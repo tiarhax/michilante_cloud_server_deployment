@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  dynamic_relay:
+    image: tiarhax/michilante_dynamic_rtsp_relay:latest
+    network_mode: "host"
+
+    env_file: dynamic_relay.env
+
+  stalechecker:
+    image: tiarhax/michilante_stale_checker:latest
+    network_mode: "host"
+    env_file: stalechecker.env
+    depends_on:
+      - dynamic_relay
+      
+  user_api:
+    image: tiarhax/michilante_user_api:latest
+    network_mode: "host"
+    env_file: user_api.env
+
+  pinger:
+    image: tiarhax/michilante_pinger
+    network_mode: host
+    env_file: pinger.env
