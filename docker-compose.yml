@@ -3,23 +3,58 @@ version: "3.8"
 services:
   dynamic_relay:
     image: tiarhax/michilante_dynamic_rtsp_relay:latest
-    network_mode: "host"
-
+    networks:
+      vpn-network:
+        ipv4_address: 189.20.0.21
+    restart: unless-stopped
     env_file: dynamic_relay.env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   stalechecker:
     image: tiarhax/michilante_stale_checker:latest
-    network_mode: "host"
+    networks:
+      vpn-network:
+        ipv4_address: 189.20.0.22
+    restart: unless-stopped
     env_file: stalechecker.env
     depends_on:
       - dynamic_relay
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
       
   user_api:
     image: tiarhax/michilante_user_api:latest
-    network_mode: "host"
+    networks:
+      vpn-network:
+        ipv4_address: 189.20.0.23
+    restart: unless-stopped
     env_file: user_api.env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   pinger:
     image: tiarhax/michilante_pinger
-    network_mode: host
+    networks:
+      vpn-network:
+        ipv4_address: 189.20.0.23
+    restart: unless-stopped
     env_file: pinger.env
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  vpn-network:
+    external: true
