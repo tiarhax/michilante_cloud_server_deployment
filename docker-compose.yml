@@ -46,7 +46,7 @@ services:
     image: tiarhax/michilante_pinger
     networks:
       vpn-network:
-        ipv4_address: 189.20.0.23
+        ipv4_address: 189.20.0.24
     restart: unless-stopped
     env_file: pinger.env
     logging:
