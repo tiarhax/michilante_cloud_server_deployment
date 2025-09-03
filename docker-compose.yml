@@ -18,7 +18,7 @@ services:
     image: tiarhax/michilante_stale_checker:latest
     networks:
       vpn-bridge:
-        ipv4_address: 10.13.13.151
+        ipv4_address: 10.13.13.152
     restart: unless-stopped
     env_file: stalechecker.env
     depends_on:
@@ -33,7 +33,7 @@ services:
     image: tiarhax/michilante_user_api:latest
     networks:
       vpn-bridge:
-        ipv4_address: 10.13.13.151
+        ipv4_address: 10.13.13.153
     restart: unless-stopped
     env_file: user_api.env
     logging:
@@ -46,7 +46,7 @@ services:
     image: tiarhax/michilante_pinger
     networks:
       vpn-bridge:
-        ipv4_address: 10.13.13.151
+        ipv4_address: 10.13.13.154
     restart: unless-stopped
     env_file: pinger.env
     logging:
