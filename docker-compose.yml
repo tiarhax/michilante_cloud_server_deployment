@@ -6,6 +6,15 @@ services:
     networks:
       vpn_network:
         ipv4_address: 189.20.0.51
+    cap_add:
+      - NET_ADMIN  # Required for route commands
+    command: |
+      sh -c "
+        # Add route to VPN subnet via WireGuard container
+        ip route add 10.13.13.0/24 via 189.20.0.2
+        # Start nginx
+        nginx -g 'daemon off;'
+      "
     restart: unless-stopped
     env_file: dynamic_relay.env
     logging:
