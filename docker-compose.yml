@@ -4,8 +4,8 @@ services:
   dynamic_relay:
     image: tiarhax/michilante_dynamic_rtsp_relay:latest
     networks:
-      vpn-bridge:
-        ipv4_address: 10.13.13.151
+      vpn_network:
+        ipv4_address: 189.20.0.51
     restart: unless-stopped
     env_file: dynamic_relay.env
     logging:
@@ -17,8 +17,8 @@ services:
   stalechecker:
     image: tiarhax/michilante_stale_checker:latest
     networks:
-      vpn-bridge:
-        ipv4_address: 10.13.13.152
+      vpn_network:
+        ipv4_address: 189.20.0.52
     restart: unless-stopped
     env_file: stalechecker.env
     depends_on:
@@ -32,8 +32,8 @@ services:
   user_api:
     image: tiarhax/michilante_user_api:latest
     networks:
-      vpn-bridge:
-        ipv4_address: 10.13.13.153
+      vpn_network:
+        ipv4_address: 189.20.0.53
     restart: unless-stopped
     env_file: user_api.env
     logging:
@@ -45,8 +45,8 @@ services:
   pinger:
     image: tiarhax/michilante_pinger
     networks:
-      vpn-bridge:
-        ipv4_address: 10.13.13.154
+      vpn_network:
+        ipv4_address: 189.20.0.54
     restart: unless-stopped
     env_file: pinger.env
     logging:
@@ -56,5 +56,5 @@ services:
         max-file: "3"
 
 networks:
-  vpn-bridge:
+  vpn_network:
     external: true
