@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   dynamic_relay:
-    image:  
+    image: tiarhax/michilante_dynamic_rtsp_relay:latest
     networks:
       vpn_network:
         ipv4_address: 189.20.0.51
