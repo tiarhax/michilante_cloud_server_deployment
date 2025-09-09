@@ -1,0 +1,15 @@
+# Enable IP forwarding (if not already enabled)
+echo 1 > /proc/sys/net/ipv4/ip_forward
+
+# Allow forwarding between WireGuard and Docker bridge
+iptables -I FORWARD -i wg0 -o br-b769ff84b45e -j ACCEPT
+iptables -I FORWARD -i br-b769ff84b45e -o wg0 -j ACCEPT
+
+# NAT traffic from WireGuard clients to Docker bridge network
+iptables -t nat -A POSTROUTING -s 10.13.13.0/24 -o br-b769ff84b45e -j MASQUERADE
+
+# NAT traffic from Docker bridge to WireGuard
+iptables -t nat -A POSTROUTING -s 189.17.0.0/16 -o wg0 -j MASQUERADE
+
+# Allow established connections
+iptables -I FORWARD -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
