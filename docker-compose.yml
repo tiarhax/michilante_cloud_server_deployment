@@ -6,8 +6,6 @@ services:
     networks:
       vpn_network:
         ipv4_address: 189.20.0.51
-    cap_add:
-      - NET_ADMIN  # Required for route commands
     post_start:
       - command: ip route add 10.13.13.0/24 via 189.20.0.2
         user: root
@@ -39,6 +37,9 @@ services:
     networks:
       vpn_network:
         ipv4_address: 189.20.0.53
+    post_start:
+      - command: ip route add 10.13.13.0/24 via 189.20.0.2
+        user: root
     restart: unless-stopped
     env_file: user_api.env
     logging:
